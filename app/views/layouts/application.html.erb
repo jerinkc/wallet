@@ -11,6 +11,25 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div id="wrapper" class="d-flex">
+      <% if user_signed_in? %>
+      <div id="sidebar-wrapper" class="border-end bg-white">
+          <div class="sidebar-heading border-bottom bg-light">Wallet-App</div>
+          <div class="list-group list-group-flush">
+              <%= link_to 'Account Summary', account_summary_path, class: 'list-group-item list-group-item-action list-group-item-light p-3' %>
+            <% if !current_user.admin? %>
+              <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Loans</a>
+            <% end %>
+            <%= link_to "Logout", destroy_user_session_path, class: 'text-danger list-group-item list-group-item-action list-group-item-light p-3' %>
+          </div>
+      </div>
+      <% end %>
+      <div id="page-content-wrapper">
+          <div class="container-fluid">
+              <%= yield %>
+          </div>
+      </div>
+    </div>
   </body>
 </html>
+
