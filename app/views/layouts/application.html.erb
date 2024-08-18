@@ -25,9 +25,19 @@
       </div>
       <% end %>
       <div id="page-content-wrapper">
-          <div class="container-fluid">
-              <%= yield %>
+        <% if notice %>
+          <div class="alert alert-warning m-3" role="alert">
+            <%= notice %>
           </div>
+        <% end %>
+        <% if alert %>
+          <div class="alert alert-danger m-3" role="alert">
+            <%= alert %>
+          </div>
+        <% end %>
+        <div class="container-fluid p-5">
+            <%= yield %>
+        </div>
       </div>
     </div>
   </body>

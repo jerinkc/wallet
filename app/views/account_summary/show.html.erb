@@ -1,2 +1,13 @@
-<h1>AccountSummary#show</h1>
-<p>Find me in app/views/account_summary/show.html.erb</p>
+<div class="account-summary">
+  <h2>Account Summary</h2>
+  <hr/>
+  <div class="card mt-5">
+    <div class="card-body">
+      <p class="card-text text-muted small mb-0">Balance</p>
+      <h1 class="card-title">$<%= @wallet.balance %></h1>
+    </div>
+    <div class="card-footer text-muted">
+      <p><strong>Account Holder: </strong> <%= current_user.full_name %></p>
+    </div>
+  </div>
+</div>
