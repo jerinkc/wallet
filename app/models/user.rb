@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one :wallet_account
+  has_many :loan_accounts
 
   validates :full_name, presence: true
 end
