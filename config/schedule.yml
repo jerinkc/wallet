@@ -1,0 +1,4 @@
+loan_interest_updater_job:
+  cron: "*/5 * * * *"
+  class: "LoanAmountUpdaterJob"
+  queue: default

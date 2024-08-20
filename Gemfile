@@ -79,3 +79,7 @@ gem "sassc-rails", "~> 2.1"
 
 gem "devise", "~> 4.9"
 
+
+gem "sidekiq-cron", "~> 1.12"
+
+gem "foreman", "~> 0.88.1"
