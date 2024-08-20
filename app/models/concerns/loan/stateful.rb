@@ -13,13 +13,23 @@ module Loan
         readjustment_requested: 6
       }
 
-      PERMITTED_STATUS_CHANGE = {
-        reject: [:requested, :approved, :waiting_for_adjustment_acceptance],
-        approved: [:requested],
-        waiting_for_adjustment_acceptance: [:requested],
-        open: [:approved, :waiting_for_adjustment_acceptance],
-        closed: [:open],
-        readjustment_requested: [:waiting_for_adjustment_acceptance]
+      # { from: [:to] }
+      PERMITTED_STATUS_CHANGES = {
+        requested: [:approved, :rejected, :waiting_for_adjustment_acceptance],
+        approved: [:open],
+        rejected: [],
+        waiting_for_adjustment_acceptance: [:approved, :rejected, :readjustment_requested],
+        readjustment_requested: [:rejected, :open],
+        open: [:closed],
+      }
+
+      # who is responsible
+      ACTOR = {
+        approved: [:admin],
+        rejected: [:admin, :borrower],
+        waiting_for_adjustment_acceptance: [:admin],
+        readjustment_requested: [:borrower],
+        open: [:borrower]
       }
     end
   end

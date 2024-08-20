@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :loans do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+  end
+
+  resource :account_summary, only: [:show], controller: 'account_summary'
+
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
-
-  resource :account_summary, only: [:show], controller: 'account_summary'
 
   root to: 'account_summary#show'
 end

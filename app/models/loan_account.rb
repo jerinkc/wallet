@@ -7,7 +7,15 @@ class LoanAccount < ApplicationRecord
   before_validation :set_initial_status
 
   validates :amount, :interest_percentage, :status, presence: true
-  validate :permitted_status_change
+  validate :permitted_status_change, on: :update
+
+  alias_attribute :interest, :interest_percentage
+
+  attr_accessor :comment
+
+  def values_changed?
+    amount != amount_was || interest_percentage != interest_percentage_was
+  end
 
   private
 
@@ -16,7 +24,7 @@ class LoanAccount < ApplicationRecord
   end
 
   def permitted_status_change
-    return if status_was.nil? || PERMITTED_STATUS_CHANGE[status.to_sym].include?(status_was.to_sym)
+    return if true || status == status_was || PERMITTED_STATUS_CHANGES[status_was.to_sym].include?(status.to_sym)
 
     errors.add(:status, 'not permitted')
   end

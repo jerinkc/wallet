@@ -3,7 +3,7 @@ class LoanService
 
   def initialize(actor:, action:, account:, params: {})
     @actor = actor
-    @params = params
+    @params = params || {}
     @action = action.to_sym
     @account = account
   end
@@ -14,6 +14,8 @@ class LoanService
       build_account
       send(action)
     end
+    rescue ActiveRecord::RecordInvalid => e
+      @errors = e.message
   end
 
   private
@@ -23,7 +25,7 @@ class LoanService
   end
 
   def update
-    return unless values_updated?
+    return unless account.values_changed?
 
     if actor.admin?
       account.waiting_for_adjustment_acceptance!
@@ -37,7 +39,7 @@ class LoanService
   end
 
   def reject
-    account.reject!
+    account.rejected!
   end
 
   # or confirm
@@ -68,10 +70,6 @@ class LoanService
     #   state: account.state,
     #   intrest:account.intrest
     # )
-  end
-
-  def values_updated?
-    account.amount != params[:amount] || account.interest_percentage != params[:interest_percentage]
   end
 
   def build_account
