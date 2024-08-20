@@ -38,7 +38,7 @@ class LoanService
     account.rejected!
   end
 
-  def ask_readjustment
+  def ask_for_readjustment
     account.readjustment_requested!
   end
 

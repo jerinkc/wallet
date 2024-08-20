@@ -1,0 +1,57 @@
+<div class="loans">
+  <div class="d-flex justify-content-between">
+    <% if !current_user.admin? %>
+      <h2>Loans</h2>
+      <span>
+        <%= link_to 'New Loan', new_loan_path, class: "btn btn-success" %>
+      </span>
+    <% end %>
+  </div>
+  <hr/>
+  <div class="card mt-5">
+    <div class="card-body p-3">
+      <div>
+        <%= link_to 'ALL', loans_path, class: "btn btn-outline-primary #{'active' unless params[:filter]}" %>
+        <% LoanAccount.statuses.keys.each do |status| %>
+          <%= link_to status.titleize, loans_path(filter: status), class: "btn btn-outline-primary #{'active' if params[:filter] == status}" %>
+        <% end %>
+      </div>
+
+      <div class="mt-5">
+        <% if @loans.empty? %>
+          No loans found
+        <% else %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Status</th>
+                <% if current_user.admin? %>
+                  <th>Requested By</th>
+                <% end %>
+                <th>Requested Amount</th>
+                <th>Current Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @loans.each do |loan| %>
+                <% presenter = LoanPresenter.new(loan) %>
+                <tr>
+                  <td>
+                    <%= link_to presenter.created_at, loan_path(loan), class: 'text-decoration-none' %>
+                  </td>
+                  <td scope="row"><%= presenter.status %></td>
+                  <% if current_user.admin? %>
+                    <td scope="row"><%= presenter.requested_by %></td>
+                  <% end %>
+                  <td scope="row"><%= presenter.amount %></td>
+                  <td scope="row"><%= presenter.repay_amount || '-' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

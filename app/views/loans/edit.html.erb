@@ -1,0 +1,9 @@
+<div class="edit-loan">
+  <h2>Loans</h2>
+  <hr/>
+  <div class="card mt-5">
+    <div class="card-body p-3">
+      <%= render 'loans/form', loan: @loan, url: loan_path(@loan), enable_comment: true %>
+    </div>
+  </div>
+</div>

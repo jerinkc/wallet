@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  resources :loans
+
   namespace :user do
     resources :loans do
       member do

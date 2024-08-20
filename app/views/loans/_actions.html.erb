@@ -1,10 +1,10 @@
 
-<% actions.each do |action| %>
-  <% if action[:method] == :get %>
-    <%= link_to action[:name], action[:path], class: "m-1 btn #{action[:class]}" %>
-  <% else %>
-    <%= form_with(model: loan, local: true, html: { data: { turbo: false } }, url: action[:path]) do |form| %>
-      <%= form.submit action[:name], class: "m-1 btn #{action[:class]}" %>
+<%= form_with(model: loan, local: true, html: { data: { turbo: false } }, url: loan_path(loan)) do |form| %>
+  <% actions.each do |action| %>
+    <% if action[:method] == :get %>
+      <%= link_to action[:name].titleize, action[:path], class: "m-1 btn #{action[:class]}" %>
+    <% else %>
+      <%= form.submit action[:name].titleize, class: "m-1 btn #{action[:class]}", name: "commit", value: action[:name].titleize %>
     <% end %>
   <% end %>
 <% end %>

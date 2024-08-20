@@ -38,12 +38,12 @@ class LoanPresenter < Struct.new(:record, :user)
         (user.id == record.editor_id && action != :closed) # actions should not be visible to current editor
 
       {
-        approved: { name: 'Approve', class: 'btn-success', path: approve_admin_loan_path(record) },
+        approved: { name: 'Approve', class: 'btn-success', path: loan_path(record) },
         rejected: { name: 'Reject', class: 'btn-danger', path: resource_path(action) },
-        waiting_for_adjustment_acceptance: { name: 'Edit', class: 'btn-warning', path: edit_admin_loan_path(record), method: :get },
+        waiting_for_adjustment_acceptance: { name: 'Edit', class: 'btn-warning', path: edit_loan_path(record), method: :get },
         open: { name: 'Accept', class: 'btn-success', path: accept_user_loan_path(record) },
-        readjustment_requested: { name: 'Ask for adjustment', class: 'btn-warning', path: ask_readjustment_user_loan_path(record) },
-        closed: { name: 'Close', class: 'btn-success', path: close_user_loan_path(record) }, #TODO: update path
+        readjustment_requested: { name: 'Ask for Readjustment', class: 'btn-warning', path: loan_path(record) },
+        closed: { name: 'Close', class: 'btn-success', path: close_user_loan_path(record) },
       }[action]
     end.compact
   end
