@@ -18,7 +18,7 @@ class User::LoansController < ApplicationController
   def create
     @service.call
     @loan = @service.account
-byebug
+
     if @service.account.errors.empty?
       redirect_to user_loan_path(@loan), notice: 'Created'
     else
@@ -56,6 +56,18 @@ byebug
 
     if @service.account.errors.empty?
       flash[:notice] = 'Requested'
+    else
+      flash[:alert] = 'Something went wrong!'
+    end
+
+    redirect_to user_loan_path(@service.account)
+  end
+
+  def close
+    @service.call
+
+    if @service.account.errors.empty?
+      flash[:notice] = 'Closed'
     else
       flash[:alert] = 'Something went wrong!'
     end

@@ -24,6 +24,10 @@ class LoanPresenter < Struct.new(:record, :user)
     history ||= [] || record.loan_account_edits.order_by(:desc)
   end
 
+  def repay_amount
+    record.total_amount
+  end
+
   def actions
     next_actions = LoanAccount::PERMITTED_STATUS_CHANGES[record.status.to_sym]
 
@@ -39,7 +43,7 @@ class LoanPresenter < Struct.new(:record, :user)
         waiting_for_adjustment_acceptance: { name: 'Edit', class: 'btn-warning', path: edit_admin_loan_path(record), method: :get },
         open: { name: 'Accept', class: 'btn-success', path: accept_user_loan_path(record) },
         readjustment_requested: { name: 'Ask for adjustment', class: 'btn-warning', path: ask_readjustment_user_loan_path(record) },
-        closed: { name: 'Close', class: 'btn-success', path: accept_user_loan_path(record) }, #TODO: update path
+        closed: { name: 'Close', class: 'btn-success', path: close_user_loan_path(record) }, #TODO: update path
       }[action]
     end.compact
   end

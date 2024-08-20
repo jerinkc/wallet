@@ -20,7 +20,8 @@ module Loan
         rejected: [],
         waiting_for_adjustment_acceptance: [:open, :rejected, :readjustment_requested],
         readjustment_requested: [:approved, :rejected, :waiting_for_adjustment_acceptance],
-        open: [:closed]
+        open: [:closed],
+        closed: []
       }
 
       # who is responsible

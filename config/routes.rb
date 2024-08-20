@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         patch :accept
         patch :reject
         patch :ask_readjustment
+        patch :close
       end
     end
   end
