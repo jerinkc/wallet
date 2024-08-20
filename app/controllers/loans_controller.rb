@@ -1,5 +1,6 @@
 class LoansController < ApplicationController
   before_action :set_loan, except: [:index, :new, :create]
+  before_action :authorize_resource, except: [:index, :new, :create]
   before_action :set_loan_service, only: [:create, :update]
 
   def index
@@ -17,6 +18,8 @@ class LoansController < ApplicationController
   end
 
   def create
+    authorize @service.account
+
     @service.call
 
     set_controller_create_message
@@ -29,6 +32,8 @@ class LoansController < ApplicationController
 
     redirect_to loan_path(@loan)
   end
+
+  def edit; end
 
   def update
     @service.call
@@ -83,5 +88,9 @@ class LoansController < ApplicationController
     else
       params.require(:loan_account).permit(:amount, :interest_percentage)
     end
+  end
+
+  def authorize_resource
+    authorize @loan
   end
 end
