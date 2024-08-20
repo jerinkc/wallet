@@ -2,26 +2,6 @@ Rails.application.routes.draw do
 
   resources :loans
 
-  namespace :user do
-    resources :loans do
-      member do
-        patch :accept
-        patch :reject
-        patch :ask_readjustment
-        patch :close
-      end
-    end
-  end
-
-  namespace :admin do
-    resources :loans do
-      member do
-        patch :approve
-        patch :reject
-      end
-    end
-  end
-
   resource :account_summary, only: [:show], controller: 'account_summary'
 
   devise_for :users, controllers: {

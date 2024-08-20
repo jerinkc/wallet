@@ -7,7 +7,7 @@ class LoansController < ApplicationController
     @loans = LoanAccount.all
     @loans = @loans.where(status: params[:filter]) if params[:filter]
     @loans = @loans.where(borrower_id: current_user.id) unless current_user.admin?
-    @loans = @loans.includes(:borrower)
+    @loans = @loans.includes(:borrower).order(:status)
   end
 
   def show
