@@ -63,17 +63,18 @@ class LoanService
   def record_account_history
     return if action == :create
 
-    # LoanAccountHistory.create!(
-    #   amount: account.amount,
-    #   editor_id: account.editor_id,
-    #   state: account.state,
-    #   intrest:account.intrest
-    # )
+    LoanAccountEditHistory.create!(
+      amount: account.amount,
+      editor_id: account.editor_id,
+      loan_account: account,
+      status: account.status,
+      interest: account.interest,
+      comment: params[:comment]
+    )
   end
 
   def build_account
     @account_was = account
-
 
     additional_params = if action == :create
                           { borrower: actor }

@@ -21,7 +21,7 @@ class LoanPresenter < Struct.new(:record, :user)
   end
 
   def history
-    history ||= [] || record.loan_account_edits.order_by(:desc)
+    history ||= record.loan_account_edit_histories
   end
 
   def repay_amount

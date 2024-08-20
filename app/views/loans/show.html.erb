@@ -29,39 +29,36 @@
       </div>
     </div>
   </div>
-<% if false %>
   <div>
     <div class="card mt-5">
       <div class="card-body">
         <h3>History</h3>
         <div class="mt-5">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Request Amount</th>
-                <th scope="col">Interest</th>
-                <th scope="col">Edited By</th>
-                <th scope="col">Date and Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @loan.history.each.with_index do |edit, index| %>
+          <% if @loan.history.present? %>
+            <table class="table table-striped">
+              <thead>
                 <tr>
-                  <th scope="row"><%= index + 1 %></th>
-                  <td>
-                    <%=  edit.percentage %>
-                  </td>
-                  <td scope="row"><%= edit.edited_by %></td>
-                  <td><%= edit.edited_at %></td>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Interest</th>
+                  <th scope="col">Change</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <% @loan.history.each.with_index do |edit, index| %>
+                  <tr>
+                    <td scope="row"><%= edit.amount %></td>
+                    <td scope="row"><%= edit.interest %></td>
+                    <td scope="row"><%= edit.status.titleize %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <% else %>
+                  <p> Nothing yet.</p>
+            <% end %>
         </div>
       </div>
     </div>
   </div>
-  <% end %>
 </div>
 

@@ -41,7 +41,7 @@ class LoansController < ApplicationController
     set_controller_update_message
 
     @loan = @service.account
-    if @service.action == :update && @service.account.errors.present?
+    if @service.account.errors.present?
       render :edit
       return
     end
@@ -65,16 +65,16 @@ class LoansController < ApplicationController
   end
 
   def set_controller_update_message
-    if @service.account.errors.present?
-      flash[:alert] = @service.errors
+    if @service.errors.present?
+      flash[:alert] = @service.account.errors.present? ? @service.errors : 'Something went wrong'
     else
       flash[:notice] = "Status changed to #{@service.account.status}"
     end
   end
 
   def set_controller_create_message
-    if @service.account.errors.present?
-      flash[:alert] = @service.errors
+    if @service.errors.present?
+      flash[:alert] = @service.account.errors.present? ? @service.errors : 'Something went wrong'
     else
       flash[:notice] = "Loan created and requested"
     end

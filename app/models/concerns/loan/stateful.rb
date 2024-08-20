@@ -14,7 +14,7 @@ module Loan
       }
 
       # { from: [:to] }
-      PERMITTED_STATUS_CHANGES = {
+      PERMITTED_STATUS_CHANGES ||= {
         requested: [:approved, :rejected, :waiting_for_adjustment_acceptance],
         approved: [:open],
         rejected: [],
@@ -25,7 +25,7 @@ module Loan
       }
 
       # who is responsible
-      ACTOR = {
+      ACTOR ||= {
         approved: [:admin],
         rejected: [:admin, :borrower],
         waiting_for_adjustment_acceptance: [:admin],

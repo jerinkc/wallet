@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_17_184810) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_20_221101) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "loan_account_edit_histories", force: :cascade do |t|
+    t.decimal "amount", precision: 12, scale: 2
+    t.decimal "interest", precision: 5, scale: 2
+    t.text "comment"
+    t.bigint "editor_id"
+    t.bigint "loan_account_id", null: false
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["editor_id"], name: "index_loan_account_edit_histories_on_editor_id"
+    t.index ["loan_account_id"], name: "index_loan_account_edit_histories_on_loan_account_id"
+  end
 
   create_table "loan_accounts", force: :cascade do |t|
     t.decimal "amount", precision: 12, scale: 2
@@ -49,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_17_184810) do
     t.index ["user_id"], name: "index_wallet_accounts_on_user_id"
   end
 
+  add_foreign_key "loan_account_edit_histories", "loan_accounts"
+  add_foreign_key "loan_account_edit_histories", "users", column: "editor_id"
   add_foreign_key "loan_accounts", "users", column: "borrower_id"
   add_foreign_key "loan_accounts", "users", column: "editor_id"
   add_foreign_key "wallet_accounts", "users"

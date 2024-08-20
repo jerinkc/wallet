@@ -3,6 +3,7 @@ class LoanAccount < ApplicationRecord
 
   belongs_to :borrower, class_name: 'User', foreign_key: 'borrower_id'
   belongs_to :editor, class_name: 'User', foreign_key: 'editor_id', optional: true
+  has_many :loan_account_edit_histories
 
   before_validation :set_initial_status
 
