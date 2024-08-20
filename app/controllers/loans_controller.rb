@@ -4,9 +4,10 @@ class LoansController < ApplicationController
   before_action :set_loan_service, only: [:create, :update]
 
   def index
-    @loans = LoanAccount.where(nil)
+    @loans = LoanAccount.all
     @loans = @loans.where(status: params[:filter]) if params[:filter]
-    @loans = @loans.where(borrower_id: current_user.id) if !current_user.admin?
+    @loans = @loans.where(borrower_id: current_user.id) unless current_user.admin?
+    @loans = @loans.includes(:borrower)
   end
 
   def show
