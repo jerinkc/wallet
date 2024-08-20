@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  namespace :user do
+    resources :loans do
+      member do
+        patch :accept
+        patch :reject
+        patch :ask_readjustment
+      end
+    end
+  end
+
   namespace :admin do
     resources :loans do
       member do

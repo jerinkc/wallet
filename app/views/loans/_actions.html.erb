@@ -1,7 +1,10 @@
+
 <% actions.each do |action| %>
   <% if action[:method] == :get %>
     <%= link_to action[:name], action[:path], class: "m-1 btn #{action[:class]}" %>
   <% else %>
-    <%= button_to action[:name], action[:path], method: :patch, data: { turbo: false }, class: "m-1 btn #{action[:class]}" %>
+    <%= form_with(model: loan, local: true, html: { data: { turbo: false } }, url: action[:path]) do |form| %>
+      <%= form.submit action[:name], class: "m-1 btn #{action[:class]}" %>
+    <% end %>
   <% end %>
 <% end %>

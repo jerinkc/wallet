@@ -18,9 +18,9 @@ module Loan
         requested: [:approved, :rejected, :waiting_for_adjustment_acceptance],
         approved: [:open],
         rejected: [],
-        waiting_for_adjustment_acceptance: [:approved, :rejected, :readjustment_requested],
-        readjustment_requested: [:rejected, :open],
-        open: [:closed],
+        waiting_for_adjustment_acceptance: [:open, :rejected, :readjustment_requested],
+        readjustment_requested: [:approved, :rejected, :waiting_for_adjustment_acceptance],
+        open: [:closed]
       }
 
       # who is responsible
@@ -29,7 +29,8 @@ module Loan
         rejected: [:admin, :borrower],
         waiting_for_adjustment_acceptance: [:admin],
         readjustment_requested: [:borrower],
-        open: [:borrower]
+        open: [:borrower],
+        closed: [:borrower, :admin]
       }
     end
   end

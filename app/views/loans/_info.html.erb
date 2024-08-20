@@ -1,4 +1,5 @@
 <p class="d-flex">
+  <span class="text-success mb-3"><%= @loan.status.titleize %></span>
   <div class="d-flex align-items-baseline">
     <h1>$<%= loan.amount %></h1> &nbsp;
     <span>for <strong><%= loan.interest %>%</strong></span>

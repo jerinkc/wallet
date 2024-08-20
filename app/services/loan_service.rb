@@ -27,11 +27,7 @@ class LoanService
   def update
     return unless account.values_changed?
 
-    if actor.admin?
-      account.waiting_for_adjustment_acceptance!
-    else
-      account.readjustment_requested!
-    end
+    account.waiting_for_adjustment_acceptance!
   end
 
   def approve
@@ -42,13 +38,17 @@ class LoanService
     account.rejected!
   end
 
+  def ask_readjustment
+    account.readjustment_requested!
+  end
+
   # or confirm
   def accept
-    WalletService.transfer(
-      from: Admin.wallet,
-      to: account.borrower.wallet_account,
-      amount: account.amount
-    )
+    # WalletService.transfer(
+    #   from: Admin.wallet,
+    #   to: account.borrower.wallet_account,
+    #   amount: account.amount
+    # )
     account.open!
   end
 
