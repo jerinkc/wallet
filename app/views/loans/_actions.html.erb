@@ -1,0 +1,7 @@
+<% actions.each do |action| %>
+  <% if action[:method] == :get %>
+    <%= link_to action[:name], action[:path], class: "m-1 btn #{action[:class]}" %>
+  <% else %>
+    <%= button_to action[:name], action[:path], method: :patch, data: { turbo: false }, class: "m-1 btn #{action[:class]}" %>
+  <% end %>
+<% end %>
