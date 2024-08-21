@@ -52,7 +52,6 @@ class LoanService
   end
 
   def close
-    # deduct_from_loan_account
     wallet_account = WalletService.new(
       from: account.borrower.wallet_account,
       amount: account.amount
@@ -85,16 +84,4 @@ class LoanService
     params.merge!(additional_params)
     account.assign_attributes(params)
   end
-
-  # def deduct_from_loan_account
-  #   user_wallet_account_balance = account.borrower.wallet_account.balance
-  #   loan_amount = account.total_amount
-  #   after_deduct_loan_amount = loan_amount - user_wallet_account_balance
-
-  #   if after_deduct_loan_amount <= 0
-  #     account.assign_attributes(total_amount: 0)
-  #   else
-  #     account.assign_attributes(total_amount: after_deduct_loan_amount)
-  #   end
-  # end
 end

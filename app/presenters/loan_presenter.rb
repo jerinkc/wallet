@@ -39,22 +39,16 @@ class LoanPresenter < Struct.new(:record, :user)
 
       {
         approved: { name: 'Approve', class: 'btn-success', path: loan_path(record) },
-        rejected: { name: 'Reject', class: 'btn-danger', path: resource_path(action) },
+        rejected: { name: 'Reject', class: 'btn-danger', path: loan_path(action) },
         waiting_for_adjustment_acceptance: { name: 'Edit', class: 'btn-warning', path: edit_loan_path(record), method: :get },
-        open: { name: 'Accept', class: 'btn-success', path: accept_user_loan_path(record) },
+        open: { name: 'Accept', class: 'btn-success', path: loan_path(record) },
         readjustment_requested: { name: 'Ask for Readjustment', class: 'btn-warning', path: loan_path(record) },
-        closed: { name: 'Close', class: 'btn-success', path: close_user_loan_path(record) },
+        closed: { name: 'Close', class: 'btn-success', path: loan_path(record) },
       }[action]
     end.compact
   end
 
   private
-
-  def resource_path(action)
-    return unless action == :rejected
-
-    user.admin? ? reject_admin_loan_path(record) : reject_user_loan_path(record)
-  end
 
   def user_role
     user.admin? ? :admin : :borrower

@@ -11,15 +11,15 @@ class LoanAmountUpdaterJob
 
   def recalculate_total_amount(account)
     interest_amount = (account.amount * account.interest)/100
-    repay_amount = (account.total_amount || 0) + interest_amount
+    repay_amount = (account.total_amount || account.amount) + interest_amount
     account.update!(total_amount: repay_amount)
 
     return if repay_amount < account.borrower.wallet_account.balance
 
-    LoanAccountService.new(
+    LoanService.new(
       actor: Admin.record,
       action: :close,
-      account:,
+      account: account
     ).call
   end
 end

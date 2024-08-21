@@ -1,24 +1,21 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Mini wallet application with Rails.
 
-Things you may want to cover:
+use seed command to seed the data
 
-* Ruby version
+```
+bundle exec rails db:seed
+```
 
-* System dependencies
+then start the appplication with
 
-* Configuration
 
-* Database creation
+```
+bundle exec foreman start
+```
 
-* Database initialization
 
-* How to run the test suite
+##### TODO
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Fix random user sign-out
+- Fix account transfer on account close

@@ -26,8 +26,8 @@ user1_loan_account = user1_loan_account_service.account
 user2_loan_account = user2_loan_account_service.account
 
 admin_loan_account_service = LoanService.new(
-                                                      actor: Admin.record,
-                                                      action: :approve,
-                                                      account: user1_loan_account_service.account
-                                                    )
+                                              actor: Admin.record,
+                                              action: :approve,
+                                              account: user1_loan_account_service.account
+                                            )
 admin_loan_account_service.call

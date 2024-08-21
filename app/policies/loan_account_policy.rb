@@ -22,7 +22,7 @@ class LoanAccountPolicy
     if user.admin?
       requested_or_readjustment_requested?
     else
-      waiting_for_adjustment_acceptance_or_open? && user_is_borrower?
+      waiting_for_adjustment_acceptance_or_approved_open? && user_is_borrower?
     end
   end
 
@@ -32,8 +32,8 @@ class LoanAccountPolicy
     [:requested, :readjustment_requested].include?(account.status.to_sym)
   end
 
-  def waiting_for_adjustment_acceptance_or_open?
-    [:waiting_for_adjustment_acceptance, :open].include?(account.status.to_sym)
+  def waiting_for_adjustment_acceptance_or_approved_open?
+    [:waiting_for_adjustment_acceptance, :approved, :open].include?(account.status.to_sym)
   end
 
   def user_is_borrower?
